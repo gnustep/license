@@ -191,10 +191,10 @@ static NSString	*defTerms = nil;
   NSMutableString	*combined;
   NSData		*digest;
   NSArray		*list;
-  BOOL			useAuthors = NO;
-  BOOL			useCopyright = NO;
-  BOOL			useOwner = NO;
-  BOOL			useTerms = NO;
+  BOOL			excludeAuthors = NO;
+  BOOL			excludeCopyright = NO;
+  BOOL			excludeOwner = NO;
+  BOOL			excludeTerms = NO;
 
   [licenseLock lock];
 
@@ -225,22 +225,22 @@ static NSString	*defTerms = nil;
   if (_authors == nil)
     {
       _authors = [defAuthors copy];
-      useAuthors = YES;
+      excludeAuthors = YES;
     }
   if (_copyr == nil)
     {
       _copyr = [defCopyright copy];
-      useCopyright = YES;
+      excludeCopyright = YES;
     }
   if (_owner == nil)
     {
       _owner = [defOwner copy];
-      useOwner = YES;
+      excludeOwner = YES;
     }
   if (_terms == nil)
     {
       _terms = [defTerms copy];
-      useTerms = YES;
+      excludeTerms = YES;
     }
 
   _lEndUser = [[defs stringForKey: @"LicenseEndUser"] copy];
@@ -321,19 +321,19 @@ static NSString	*defTerms = nil;
       [combined appendString: _lHosts];
     }
 
-  if (_authors != nil && useAuthors == YES)
+  if (_authors != nil && excludeAuthors == NO)
     {
       [combined appendString: _authors];
     }
-  if (_copyr != nil && useCopyright == YES)
+  if (_copyr != nil && excludeCopyright == NO)
     {
       [combined appendString: _copyr];
     }
-  if (_owner != nil && useOwner == YES)
+  if (_owner != nil && excludeOwner == NO)
     {
       [combined appendString: _owner];
     }
-  if (_terms != nil && useTerms == YES)
+  if (_terms != nil && excludeTerms == NO)
     {
       [combined appendString: _terms];
     }
