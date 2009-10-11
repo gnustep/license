@@ -191,6 +191,10 @@ static NSString	*defTerms = nil;
   NSMutableString	*combined;
   NSData		*digest;
   NSArray		*list;
+  BOOL			useAuthors = NO;
+  BOOL			useCopyright = NO;
+  BOOL			useOwner = NO;
+  BOOL			useTerms = NO;
 
   [licenseLock lock];
 
@@ -206,6 +210,13 @@ static NSString	*defTerms = nil;
 
   _message = [NSMutableString new];
 
+  /* The following four values may be set programatically or from the
+   * defaults system.  If they are set from the defaults system then
+   * they need to be included in the hashed key (to make sure they are
+   * not altered) otherwise they must NOT be part of the hashed key
+   * because that woudl stop the license utility from being able to
+   * generate a correct key.
+   */
   _authors = [[defs stringForKey: @"LicenseAuthors"] copy];
   _copyr = [[defs stringForKey: @"LicenseCopyright"] copy];
   _owner = [[defs stringForKey: @"LicenseOwner"] copy];
@@ -214,18 +225,22 @@ static NSString	*defTerms = nil;
   if (_authors == nil)
     {
       _authors = [defAuthors copy];
+      useAuthors = YES;
     }
   if (_copyr == nil)
     {
       _copyr = [defCopyright copy];
+      useCopyright = YES;
     }
   if (_owner == nil)
     {
       _owner = [defOwner copy];
+      useOwner = YES;
     }
   if (_terms == nil)
     {
       _terms = [defTerms copy];
+      useTerms = YES;
     }
 
   _lEndUser = [[defs stringForKey: @"LicenseEndUser"] copy];
@@ -306,19 +321,19 @@ static NSString	*defTerms = nil;
       [combined appendString: _lHosts];
     }
 
-  if (_authors != nil)
+  if (_authors != nil && useAuthors == YES)
     {
       [combined appendString: _authors];
     }
-  if (_copyr != nil)
+  if (_copyr != nil && useCopyright == YES)
     {
       [combined appendString: _copyr];
     }
-  if (_owner != nil)
+  if (_owner != nil && useOwner == YES)
     {
       [combined appendString: _owner];
     }
-  if (_terms != nil)
+  if (_terms != nil && useTerms == YES)
     {
       [combined appendString: _terms];
     }
