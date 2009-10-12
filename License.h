@@ -2,7 +2,7 @@
 #define	INCLUDED_LICENSE_H	1
 
 /** Simple, software licensing class.
-   Copyright (C) 1993, 1994, 1995, 1996 Free Software Foundation, Inc.
+   Copyright (C) 2009 Free Software Foundation, Inc.
 
    Written by:  Richard Frith-Macdonald <rfm@gnu.org>
    Date:	August 2009
@@ -148,6 +148,10 @@ defaults write MyProgram | fgrep ' License' &gt; MyProgram.license
 
 #import	<Foundation/Foundation.h>
 
+#if	defined(__cplusplus)
+extern "C" {
+#endif
+
 @interface	License : NSObject
 {
 @private
@@ -240,5 +244,9 @@ defaults write MyProgram | fgrep ' License' &gt; MyProgram.license
  */
 - (BOOL) valid;
 @end
+
+#if	defined(__cplusplus)
+}
+#endif
 
 #endif

@@ -20,8 +20,8 @@ SVN_MODULE_NAME=license
 
 NEEDS_GUI = NO
 
-TEST_TOOL_NAME=
-
+TOOL_NAME=license
+TEST_TOOL_NAME=testLicense
 LIBRARY_NAME=License
 DOCUMENT_NAME=License
 
@@ -33,9 +33,11 @@ License_OBJC_FILES +=\
 
 License_HEADER_FILES +=\
 	License.h\
+	License-C.h\
 
 License_AGSDOC_FILES +=\
 	License.h\
+	License-C.h\
 
 #
 # Assume that the use of the gnu runtime means we have the gnustep
@@ -54,15 +56,19 @@ endif
 
 License_HEADER_FILES_INSTALL_DIR = License
 
-TOOL_NAME+=license
 license_OBJC_FILES = license.m
 license_TOOL_LIBS += -lLicense
 license_LIB_DIRS += -L./$(GNUSTEP_OBJ_DIR)
+
+testLicense_C_FILES = testLicense.c
+testLicense_TOOL_LIBS += -lLicense
+testLicense_LIB_DIRS += -L./$(GNUSTEP_OBJ_DIR)
 
 -include GNUmakefile.preamble
 
 include $(GNUSTEP_MAKEFILES)/library.make
 include $(GNUSTEP_MAKEFILES)/tool.make
+include $(GNUSTEP_MAKEFILES)/test-tool.make
 include $(GNUSTEP_MAKEFILES)/documentation.make
 
 -include GNUmakefile.postamble

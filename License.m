@@ -1,5 +1,5 @@
 /* Simple, software licensing class.
-   Copyright (C) 1993, 1994, 1995, 1996 Free Software Foundation, Inc.
+   Copyright (C) 2009 Free Software Foundation, Inc.
 
    Written by:  Richard Frith-Macdonald <rfm@gnu.org>
    Date:	August 2009
@@ -496,3 +496,66 @@ static NSString	*defTerms = nil;
   return _valid;
 }
 @end
+
+const char *
+LicenseSetup(const char *a, const char *c, const char *o, const char *t)
+{
+  static char		buf[BUFSIZ*10];
+  NSAutoreleasePool	*pool = [NSAutoreleasePool new];
+  License		*l;
+  NSString		*s;
+
+  if (a != 0)
+    {
+      s = [NSString stringWithUTF8String: a];
+      [License setAuthors: s];
+    }
+  if (c != 0)
+    {
+      s = [NSString stringWithUTF8String: c];
+      [License setCopyright: s];
+    }
+  if (o != 0)
+    {
+      s = [NSString stringWithUTF8String: o];
+      [License setOwner: s];
+    }
+  if (t != 0)
+    {
+      s = [NSString stringWithUTF8String: t];
+      [License setTerms: s];
+    }
+  l = [License currentLicense];
+  strncpy(buf, [[l message] UTF8String], sizeof(buf) - 1);
+  buf[sizeof(buf) - 1] = '\0';
+  [pool release];
+  return buf;
+}
+
+extern int
+LicenseValid(int update)
+{
+  NSAutoreleasePool	*pool = [NSAutoreleasePool new];
+  License		*l;
+  int			ok;
+
+  ok = 1;
+  if (update)
+    {
+      NSUserDefaults	*defs;
+
+      defs = [NSUserDefaults standardUserDefaults];
+      [defs synchronize];
+    }
+  l = [License currentLicense];
+  if ([l valid] == NO)
+    {
+      ok  = 0;
+    }
+  else if ([[l expires] timeIntervalSinceNow] <= 0.0)
+    {
+      ok = 0;
+    }
+  [pool release];
+  return ok;
+}
