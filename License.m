@@ -264,8 +264,8 @@ static NSString	*defTerms = nil;
     {
       NSString	*t = [_lExpires stringByAppendingString: @" 23:59:59"];
 
-      _expires = [NSCalendarDate dateWithString: t
-				 calendarFormat: @"%Y-%m-%d %H:%M:%S"];
+      _expires = [[NSCalendarDate dateWithString: t
+				  calendarFormat: @"%Y-%m-%d %H:%M:%S"] copy];
     }
   else
     {
