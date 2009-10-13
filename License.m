@@ -262,8 +262,10 @@ static NSString	*defTerms = nil;
 
   if ([_lExpires length] > 0)
     {
-      _expires = [[NSCalendarDate dateWithString: _lExpires
-				 calendarFormat: @"%Y-%m-%d"] copy];
+      NSString	*t = [_lExpires stringByAppendingString: @" 23:59:59"];
+
+      _expires = [NSCalendarDate dateWithString: t
+				 calendarFormat: @"%Y-%m-%d %H:%M:%S"];
     }
   else
     {
@@ -453,7 +455,7 @@ static NSString	*defTerms = nil;
 	  return self;
 	}
     }
-  if ([_expires timeIntervalSinceNow] <= 0.0)
+  if ([_expires timeIntervalSinceNow] < 0.0)
     {
       [_message appendString:
 	@"This product does not have a valid expiry.\n\n\n"];
