@@ -56,7 +56,7 @@ endif
 
 License_HEADER_FILES_INSTALL_DIR = License
 
-license_OBJC_FILES = license.m
+license_OBJC_FILES = main.m
 license_TOOL_LIBS += -lLicense
 license_LIB_DIRS += -L./$(GNUSTEP_OBJ_DIR)
 
