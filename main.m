@@ -82,6 +82,11 @@ main(int argc, char** argv, char **env)
 	}
       [License setDomain: owner];
       license = [License new];
+      if ([license generated] == nil)
+	{
+	  GSPrintf(stderr, @"license: %@\n", [license message]);
+	  return 1;
+	}
       [domain setObject: [license generated] forKey: @"LicenseKey"];
       [license release];
       [defs setPersistentDomain: domain forName: owner];
