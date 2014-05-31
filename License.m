@@ -46,6 +46,7 @@ static NSString	*defTerms = nil;
 	}
       [licenseLock unlock];
     }
+  [l release];
 }
 
 + (License*) currentLicense
@@ -53,7 +54,7 @@ static NSString	*defTerms = nil;
   License	*license;
 
   [licenseLock lock];
-  if (currentLicense == nil)
+  if (nil == currentLicense)
     {
       currentLicense = [License new];
     }
@@ -180,7 +181,7 @@ static NSString	*defTerms = nil;
   return _generated;
 }
 
-- (unsigned) hash
+- (NSUInteger) hash
 {
   return [_lKey hash];
 }

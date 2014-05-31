@@ -21,7 +21,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 -include config.make
 
 PACKAGE_NAME = License
-PACKAGE_VERSION = 1.0.0
+PACKAGE_VERSION = 1.0.1
 CVS_MODULE_NAME = gnustep/dev-libs/License
 CVS_TAG_NAME = License
 SVN_BASE_URL=svn+ssh://svn.gna.org/svn/gnustep/libs
