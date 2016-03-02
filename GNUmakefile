@@ -48,17 +48,10 @@ License_AGSDOC_FILES +=\
 	License.h\
 	License-C.h\
 
+# If we are not using the GNUstep foundation library,
+# we need to use its extensions to build License stuff.
 #
-# Assume that the use of the gnu runtime means we have the gnustep
-# base library and can use its extensions to build License stuff.
-#
-ifeq ($(OBJC_RUNTIME_LIB),gnu)
-APPLE=0
-else
-APPLE=1
-endif
-
-ifeq ($(APPLE),1)
+ifneq ($(FOUNDATION_LIB),gnu)
 ADDITIONAL_OBJC_LIBS += -lgnustep-baseadd
 License_LIBRARIES_DEPEND_UPON = -lgnustep-baseadd
 endif
