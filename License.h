@@ -31,7 +31,7 @@
       The License class provides a simple framework for GNUstep program to
       encapsulate copyright and licensing information within the
       NSUserDefaults system so that a 'customer' is not able to use the
-      licensed program outsiode the terms of tis license without being
+      licensed program outsiode the terms of this license without being
       aware of the fact.<br />
       The class allows you to create/access an instance representing the
       current license terms of the product, and gives a message which can
